@@ -1,0 +1,51 @@
+{
+  "name": "fengari-loader",
+  "version": "0.0.0",
+  "description": "Webpack loader for fengari",
+  "repository": "https://github.com/fengari-lua/fengari-loader.git",
+  "contributors": [
+    "Daurnimator <quae@daurnimator.com>"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint src/"
+  },
+  "main": "src/fengari-loader.js",
+  "devDependencies": {
+    "eslint": "^4.13.0",
+    "schema-utils": "^0.4.2",
+    "webpack": "^3.9.1"
+  },
+  "dependencies": {
+    "fengari": "fengari-lua/fengari",
+    "loader-utils": "^1.1.0"
+  },
+  "eslintConfig": {
+    "env": {
+      "es6": true,
+      "node": true
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+      "indent": [
+        "error",
+        "tab",
+        {
+          "SwitchCase": 1
+        }
+      ],
+      "linebreak-style": [
+        "error",
+        "unix"
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "semi": [
+        "error",
+        "always"
+      ]
+    }
+  }
+}
