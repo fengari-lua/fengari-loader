@@ -17,7 +17,16 @@ const schema = {
 	}
 };
 
+exports.raw = true;
 exports.default = function(source) {
+	{
+		/* check if source is valid JS string */
+		let stringsource = source.toString();
+		if (source.equals(Buffer.from(stringsource)))
+			source = stringsource;
+		else /* convert from buffer to array of bytes */
+			source = Array.from(source);
+	}
 	const options = loader_utils.getOptions(this) || {};
 	validateOptions(schema, options, 'Fengari Loader');
 

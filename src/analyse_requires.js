@@ -63,8 +63,12 @@ const FindRequires = function(f, requires) {
 };
 
 const analyse_requires = function(source) {
+	if (typeof source == 'string')
+		source = lua.to_luastring(source);
+	else if (!Array.isArray(source))
+		throw TypeError('expected string or array of bytes');
 	const L = lauxlib.luaL_newstate();
-	if (lauxlib.luaL_loadbuffer(L, lua.to_luastring(source), null, null) === lua.LUA_ERRSYNTAX) {
+	if (lauxlib.luaL_loadbuffer(L, source, null, null) === lua.LUA_ERRSYNTAX) {
 		let msg = lua.lua_tojsstring(L, -1);
 		throw new SyntaxError(msg);
 	}
