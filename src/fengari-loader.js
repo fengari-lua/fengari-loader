@@ -1,6 +1,6 @@
 'use strict';
 
-const getOptions = require('loader-utils').getOptions;
+const loader_utils = require('loader-utils');
 const validateOptions = require('schema-utils');
 
 const analyse_requires = require('./analyse_requires.js').analyse_requires;
@@ -18,7 +18,7 @@ const schema = {
 };
 
 exports.default = function(source) {
-	const options = getOptions(this) || {};
+	const options = loader_utils.getOptions(this) || {};
 	validateOptions(schema, options, 'Fengari Loader');
 
 	let s = 'var fengari_web = require("fengari-web");\n';
@@ -52,8 +52,8 @@ exports.default = function(source) {
 		}
 		s += 'lua.lua_pop(L, 1);\n';
 	}
-	let chunkname = '@' + this.resourcePath;
-	return s + 'module.exports = fengari_web.load(' + JSON.stringify(source) + ', ' + JSON.stringify(chunkname) + ')' +
+	let chunkname = '"@"+' + loader_utils.stringifyRequest(this, this.resourcePath);
+	return s + 'module.exports = fengari_web.load(' + JSON.stringify(source) + ', ' + chunkname + ')' +
 		/* call with require string */
-		'.call(' + JSON.stringify(this.resource) + ');';
+		'.call(' + loader_utils.stringifyRequest(this, this.resource) + ');';
 };
