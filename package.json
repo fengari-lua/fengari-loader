@@ -8,17 +8,22 @@
   ],
   "license": "MIT",
   "scripts": {
-    "lint": "eslint src/"
+    "lint": "eslint src/ test/",
+    "test": "jest"
   },
   "main": "src/fengari-loader.js",
   "devDependencies": {
+    "babel-jest": "^21.2.0",
+    "babel-preset-env": "^1.6.1",
     "eslint": "^4.13.0",
-    "schema-utils": "^0.4.2",
+    "jest": "^21.2.1",
+    "memory-fs": "^0.4.1",
     "webpack": "^3.9.1"
   },
   "dependencies": {
     "fengari": "fengari-lua/fengari",
-    "loader-utils": "^1.1.0"
+    "loader-utils": "^1.1.0",
+    "schema-utils": "^0.4.2"
   },
   "eslintConfig": {
     "env": {
@@ -46,6 +51,20 @@
         "error",
         "always"
       ]
-    }
+    },
+    "overrides": [
+      {
+        "files": [
+          "test/*.js"
+        ],
+        "env": {
+          "jest": true
+        },
+        "parserOptions": {
+          "ecmaVersion": 8,
+          "sourceType": "module"
+        }
+      }
+    ]
   }
 }
