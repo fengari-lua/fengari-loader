@@ -57,7 +57,7 @@ exports.default = function(source) {
 			this.addDependency(require_path);
 			s +=
 				'lua.lua_pushcfunction(L, function(L){push(L, require(' + JSON.stringify(require_path) +')); return 1;});\n' +
-				'lua.lua_setfield(L, -2, lua.to_luastring(' + JSON.stringify(lua_name) + '));\n';
+				'lua.lua_setfield(L, -2, fengari_web.to_luastring(' + JSON.stringify(lua_name) + '));\n';
 		}
 		s += 'lua.lua_pop(L, 1);\n';
 	}
