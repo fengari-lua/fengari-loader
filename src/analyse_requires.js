@@ -93,8 +93,8 @@ const FindRequires = function(f, requires) {
 const analyse_requires = function(source) {
 	if (typeof source == 'string')
 		source = to_luastring(source);
-	else if (!Array.isArray(source))
-		throw new TypeError('expected string or array of bytes');
+	else if (!(source instanceof Uint8Array))
+		throw new TypeError('expected string or Uint8Array');
 	const L = luaL_newstate();
 	if (luaL_loadbuffer(L, source, null, null) === LUA_ERRSYNTAX) {
 		let msg = lua_tojsstring(L, -1);

@@ -3,6 +3,15 @@
 const loader_utils = require('loader-utils');
 const validateOptions = require('schema-utils');
 
+const {
+	lua: {
+		LUA_ERRSYNTAX,
+		lua_tojsstring
+	},
+	lauxlib: {
+		luaL_newstate
+	}
+} = require('fengari');
 const analyse_requires = require('./analyse_requires.js').analyse_requires;
 
 const schema = {
@@ -19,16 +28,14 @@ const schema = {
 
 exports.raw = true;
 exports.default = function(source) {
-	{
-		/* check if source is valid JS string */
-		let stringsource = source.toString();
-		if (source.equals(Buffer.from(stringsource)))
-			source = stringsource;
-		else /* convert from buffer to array of bytes */
-			source = Array.from(source);
-	}
 	const options = loader_utils.getOptions(this) || {};
 	validateOptions(schema, options, 'Fengari Loader');
+
+	let L = luaL_newstate();
+	if (luaL_loadbuffer(L, source, null, null) === LUA_ERRSYNTAX) {
+		let msg = lua_tojsstring(L, -1);
+		throw new SyntaxError(msg);
+	}
 
 	let s = 'var fengari_web = require("fengari-web");\n';
 	let lua_dependencies = options.dependencies;
@@ -62,7 +69,16 @@ exports.default = function(source) {
 		s += 'lua.lua_pop(L, 1);\n';
 	}
 	let chunkname = '"@"+' + loader_utils.stringifyRequest(this, this.resourcePath);
-	return s + 'module.exports = fengari_web.load(' + JSON.stringify(source) + ', ' + chunkname + ')' +
+	{
+		/* check if source is valid JS string */
+		let stringsource = source.toString();
+		if (source.equals(Buffer.from(stringsource))) {
+			source = JSON.stringify(stringsource);
+		} else {
+			source = 'fengari_web.luastring_of(' + source.join(',') + ')';
+		}
+	}
+	return s + 'module.exports = fengari_web.load(' + source + ', ' + chunkname + ')' +
 		/* call with require string */
 		'.call(' + loader_utils.stringifyRequest(this, this.resource) + ');';
 };
