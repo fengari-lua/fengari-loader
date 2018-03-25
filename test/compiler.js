@@ -2,7 +2,7 @@ import path from 'path';
 import webpack from 'webpack';
 import memoryfs from 'memory-fs';
 
-export default (entry) => {
+export default (entry, options) => {
 	const compiler = webpack({
 		context: __dirname,
 		entry: entry,
@@ -13,7 +13,10 @@ export default (entry) => {
 		module: {
 			rules: [{
 				test: /\.lua$/,
-				use: path.resolve(__dirname, '../src/fengari-loader.js')
+				use: {
+					loader: path.resolve(__dirname, '../src/fengari-loader.js'),
+					options: options
+				}
 			}]
 		}
 	});
