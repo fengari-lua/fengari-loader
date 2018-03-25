@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/fengari-lua/fengari-loader.svg?branch=master)](https://travis-ci.org/fengari-lua/fengari-loader)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![#fengari on Freenode](https://img.shields.io/Freenode/%23fengari.png)](https://webchat.freenode.net/?channels=fengari)
+
 <div align="center">
   <a href="https://fengari.io/"><img height="200" src="https://fengari.io/static/images/logo.png"></a>
   <a href="https://github.com/webpack/webpack"><img width="200" height="200" src="https://webpack.js.org/assets/icon-square-big.svg"></a>
