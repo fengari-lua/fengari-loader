@@ -64,9 +64,9 @@ const readconstant = function(f, i) {
 const isRequire = function(f, pc) {
 	let i = f.code[pc];
 	return i.opcode === OP_GETTABUP &&
+		i.B === 0 && /* _ENV should be first upvalue */
 		ISK(i.C) &&
-		UPVALNAME(f, i.B) == '_ENV' &&
-		readconstant(f, INDEXK(i.C)) == 'require';
+		readconstant(f, INDEXK(i.C)) === 'require';
 };
 
 const FindRequires = function(f, requires) {
