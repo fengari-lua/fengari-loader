@@ -30,4 +30,14 @@ end
 return require "otherthing"
 		`).sort()).toEqual(['foo', 'foo.bar', 'static', 'morethings', 'otherthing'].sort());
 	});
+	test('detects invalid arguments', () => {
+		expect(() => {
+			analyse_requires({});
+		}).toThrow(TypeError);
+	});
+	test('detects invalid syntax', () => {
+		expect(() => {
+			analyse_requires(`1#2`);
+		}).toThrow(SyntaxError);
+	});
 });
