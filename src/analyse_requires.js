@@ -57,7 +57,7 @@ const readconstant = function(f, i) {
 		case LUA_TLNGSTR:
 			return to_jsstring(o.svalue());
 		default:
-			throw Error('unhandled constant type');
+			throw new Error('unhandled constant type');
 	}
 };
 
@@ -94,7 +94,7 @@ const analyse_requires = function(source) {
 	if (typeof source == 'string')
 		source = to_luastring(source);
 	else if (!Array.isArray(source))
-		throw TypeError('expected string or array of bytes');
+		throw new TypeError('expected string or array of bytes');
 	const L = luaL_newstate();
 	if (luaL_loadbuffer(L, source, null, null) === LUA_ERRSYNTAX) {
 		let msg = lua_tojsstring(L, -1);
