@@ -17,8 +17,11 @@
     "babel-preset-env": "^1.6.1",
     "eslint": "^4.13.0",
     "jest": "^21.2.1",
-    "memory-fs": "^0.4.1",
-    "webpack": "^3.9.1"
+    "memory-fs": "^0.4.1"
+  },
+  "peerDependencies": {
+    "fengari-web": "^0.0",
+    "webpack": "^3.0.0 || ^4.0.0"
   },
   "dependencies": {
     "fengari": "fengari-lua/fengari",
