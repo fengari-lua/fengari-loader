@@ -31,7 +31,8 @@ const {
 	OpCodesI: {
 		OP_CALL,
 		OP_GETTABUP,
-		OP_LOADK
+		OP_LOADK,
+		OP_TAILCALL
 	}
 } = require(`${fengariPath}/lopcodes.js`);
 
@@ -73,7 +74,7 @@ const FindRequires = function(f, requires) {
 		if (isRequire(f, pc)) {
 			/* Found someone using require */
 			if (f.code[pc+1].opcode === OP_LOADK &&
-				f.code[pc+2].opcode === OP_CALL) {
+				(f.code[pc+2].opcode === OP_CALL || f.code[pc+2].opcode === OP_TAILCALL)) {
 				let arg = readconstant(f, INDEXK(f.code[pc+1].Bx));
 				if (typeof arg !== 'string')
 					throw new TypeError('passed non-string to require');
