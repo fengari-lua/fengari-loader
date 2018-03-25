@@ -49,6 +49,7 @@ import mycode from './mycode.lua'
 |Name|Type|Default|Description|
 |:--:|:--:|:-----:|:----------|
 |**`dependencies`**|`{Object\|undefined}`|`undefined`|If `undefined`, analyse the required lua file for `require` calls. Otherwise, manually specifies the dependencies as a map from require string to webpack module name|
+|**`strip`**|`{Boolean}`|`false`|If `true`, emit stripped lua bytecode instead of source|
 
 
 ## How does it work?

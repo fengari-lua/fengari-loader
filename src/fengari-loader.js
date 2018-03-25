@@ -6,10 +6,18 @@ const validateOptions = require('schema-utils');
 const {
 	lua: {
 		LUA_ERRSYNTAX,
-		lua_tojsstring
+		lua_dump,
+		lua_pop,
+		lua_tojsstring,
+		lua_tostring
 	},
 	lauxlib: {
-		luaL_newstate
+		luaL_Buffer,
+		luaL_addlstring,
+		luaL_buffinit,
+		luaL_loadbuffer,
+		luaL_newstate,
+		luaL_pushresult
 	}
 } = require('fengari');
 const analyse_requires = require('./analyse_requires.js').analyse_requires;
@@ -22,6 +30,9 @@ const schema = {
 			patternProperties: {
 				'.*': { type: 'string' }
 			}
+		},
+		strip: {
+			type: 'boolean'
 		}
 	}
 };
@@ -69,7 +80,20 @@ exports.default = function(source) {
 		s += 'lua.lua_pop(L, 1);\n';
 	}
 	let chunkname = '"@"+' + loader_utils.stringifyRequest(this, this.resourcePath);
-	{
+	if (options.strip) {
+		const writer = function(L, b, size, B) {
+			luaL_addlstring(B, b, size);
+			return 0;
+		};
+		let b = new luaL_Buffer();
+		luaL_buffinit(L, b);
+		if (lua_dump(L, writer, b, true) !== 0)
+			throw new Error('unable to dump given function');
+		luaL_pushresult(b);
+		source = lua_tostring(L, -1);
+		source = 'fengari_web.luastring_of(' + source.join(',') + ')';
+		lua_pop(L, 1);
+	} else {
 		/* check if source is valid JS string */
 		let stringsource = source.toString();
 		if (source.equals(Buffer.from(stringsource))) {
