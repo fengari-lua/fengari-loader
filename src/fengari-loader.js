@@ -4,6 +4,9 @@ const loader_utils = require('loader-utils');
 const validateOptions = require('schema-utils');
 
 const {
+	luastring_eq,
+	to_jsstring,
+	to_luastring,
 	lua: {
 		LUA_ERRSYNTAX,
 		lua_dump,
@@ -41,6 +44,14 @@ exports.raw = true;
 exports.default = function(source) {
 	const options = loader_utils.getOptions(this) || {};
 	validateOptions(schema, options, 'Fengari Loader');
+
+	if (typeof source === 'string') {
+		source = to_luastring(source);
+	} else if (!(source instanceof Uint8Array)) {
+		let buf = new Uint8Array(source.length);
+		source.copy(buf);
+		source = buf;
+	}
 
 	let L = luaL_newstate();
 	if (luaL_loadbuffer(L, source, null, null) === LUA_ERRSYNTAX) {
@@ -95,8 +106,8 @@ exports.default = function(source) {
 		lua_pop(L, 1);
 	} else {
 		/* check if source is valid JS string */
-		let stringsource = source.toString();
-		if (source.equals(Buffer.from(stringsource))) {
+		let stringsource = to_jsstring(source);
+		if (luastring_eq(source, to_luastring(stringsource))) {
 			source = JSON.stringify(stringsource);
 		} else {
 			source = 'fengari_web.luastring_of(' + source.join(',') + ')';
