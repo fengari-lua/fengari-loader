@@ -17,7 +17,8 @@
     "babel-preset-env": "^1.6.1",
     "eslint": "^4.19.1",
     "jest": "^22.4.3",
-    "memory-fs": "^0.4.1"
+    "memory-fs": "^0.4.1",
+    "webpack": "^3.0.0 || ^4.0.0"
   },
   "peerDependencies": {
     "fengari-web": "^0.1",
