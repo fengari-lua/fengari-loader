@@ -40,10 +40,6 @@ const toproto = function(L, i) {
 	return lua_topointer(L, i).p;
 };
 
-const UPVALNAME = function(f, x) {
-	return f.upvalues[x].name ? to_jsstring(f.upvalues[x].name.getstr()) : '-';
-};
-
 const readconstant = function(f, i) {
 	let o = f.k[i];
 	switch (o.ttype()) {

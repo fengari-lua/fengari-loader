@@ -21,7 +21,7 @@ const strip = function(source) {
 	source = new Uint8Array(lua.lua_tostring(L, -1));
 	lua.lua_pop(L, 1);
 	return source;
-}
+};
 
 describe('Analysis of lua require calls', () => {
 	test('basic call', () => {
