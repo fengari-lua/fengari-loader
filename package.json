@@ -29,6 +29,9 @@
     "loader-utils": "^1.1.0",
     "schema-utils": "^0.4.5"
   },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "eslintConfig": {
     "env": {
       "es6": true,
