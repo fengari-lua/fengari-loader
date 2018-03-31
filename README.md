@@ -14,7 +14,7 @@ This repository contains a [webpack loader](https://webpack.js.org/concepts/#loa
 ## Install
 
 ```bash
-npm install fengari-lua/fengari-loader fengari-web webpack --save-dev
+npm install fengari-lua/fengari-loader fengari-web webpack webpack-cli --save-dev
 ```
 
 fengari-loader requires fengari-web and webpack as peerDependency. Thus you are able to control the versions accurately.
@@ -22,14 +22,21 @@ fengari-loader requires fengari-web and webpack as peerDependency. Thus you are 
 
 ## Usage
 
-**component.js**
+**src/mycode.lua**
+```js
+return {
+  42
+}
+```
+
+**src/index.js**
 ```js
 import mycode from './mycode.lua'
 ```
 
 **webpack.config.js**
 ```js
-{
+module.exports = {
   module: {
     rules: [
       {
