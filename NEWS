@@ -1,0 +1,4 @@
+0.0.1 - 2018-04-03
+
+  - Webpack loader that uses fengari-web to run lua scripts
+  - Basic analysis of lua files for require calls

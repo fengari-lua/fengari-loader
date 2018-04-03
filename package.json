@@ -1,6 +1,6 @@
 {
   "name": "fengari-loader",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Webpack loader for fengari",
   "repository": "https://github.com/fengari-lua/fengari-loader.git",
   "contributors": [
