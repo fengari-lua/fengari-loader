@@ -14,7 +14,7 @@ This repository contains a [webpack loader](https://webpack.js.org/concepts/#loa
 ## Install
 
 ```bash
-npm install fengari-lua/fengari-loader fengari-web webpack webpack-cli --save-dev
+npm install fengari-loader fengari-web webpack webpack-cli --save-dev
 ```
 
 fengari-loader requires fengari-web and webpack as peerDependency. Thus you are able to control the versions accurately.
