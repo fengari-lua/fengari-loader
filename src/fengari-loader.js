@@ -41,6 +41,21 @@ const schema = {
 	}
 };
 
+/* libraries automatically loaded into fengari-web */
+const builtins = new Set([
+	'_G',
+	'os',
+	'package',
+	'coroutine',
+	'table',
+	'os',
+	'string',
+	'math',
+	'utf8',
+	'debug',
+	'js'
+]);
+
 exports.raw = true;
 exports.default = function(source) {
 	const callback = this.async();
@@ -70,8 +85,8 @@ exports.default = function(source) {
 			lua_dependencies_keys = analyse_requires(source);
 			for (let i=0; i<lua_dependencies_keys.length; i++) {
 				let lua_name = lua_dependencies_keys[i];
-				/* skip the 'js' library (fengari-interop) as it's already included in fengari-web */
-				if (lua_name === 'js') continue;
+				/* skip libraries that automatically load in fengari-web */
+				if (builtins.has(lua_name)) continue;
 				/* if lua requires "foo" then look for webpack dependency "foo" */
 				lua_dependencies[lua_name] = await new Promise((resolve, reject) => {
 					this.resolve(process.cwd(), lua_name, (err, result) => {
