@@ -1,5 +1,6 @@
 'use strict';
 
+const process = require('process');
 const loader_utils = require('loader-utils');
 const validateOptions = require('schema-utils');
 
@@ -72,7 +73,12 @@ exports.default = function(source) {
 				/* skip the 'js' library (fengari-interop) as it's already included in fengari-web */
 				if (lua_name === 'js') continue;
 				/* if lua requires "foo" then look for webpack dependency "foo" */
-				lua_dependencies[lua_name] = lua_name;
+				lua_dependencies[lua_name] = await new Promise((resolve, reject) => {
+					this.resolve(process.cwd(), lua_name, (err, result) => {
+						if (err) reject(err);
+						else resolve(result);
+					});
+				});
 			}
 		} else {
 			lua_dependencies_keys = Object.keys(lua_dependencies);
