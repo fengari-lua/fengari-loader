@@ -83,10 +83,10 @@ exports.default = function(source) {
 		if (lua_dependencies === void 0) {
 			lua_dependencies = {};
 			lua_dependencies_keys = analyse_requires(source);
+			/* skip libraries that automatically load in fengari-web */
+			lua_dependencies_keys = lua_dependencies_keys.filter((lua_name) => !builtins.has(lua_name));
 			for (let i=0; i<lua_dependencies_keys.length; i++) {
 				let lua_name = lua_dependencies_keys[i];
-				/* skip libraries that automatically load in fengari-web */
-				if (builtins.has(lua_name)) continue;
 				/* if lua requires "foo" then look for webpack dependency "foo" */
 				lua_dependencies[lua_name] = await new Promise((resolve, reject) => {
 					this.resolve(process.cwd(), lua_name, (err, result) => {
