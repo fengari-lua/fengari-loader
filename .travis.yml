@@ -6,9 +6,11 @@ cache: yarn
 
 matrix:
   include:
-    - node_js: 6
-      env: WEBPACK_VERSION=latest
     - node_js: 8
+      env: WEBPACK_VERSION=latest
+    - node_js: 10
+      env: WEBPACK_VERSION=latest
+    - node_js: 11
       env: WEBPACK_VERSION=latest
     - node_js: node
       env: WEBPACK_VERSION=latest
