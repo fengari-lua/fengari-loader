@@ -67,6 +67,8 @@ exports.default = function(source) {
 		lua_dependencies_keys = analyse_requires(source);
 		for (let i=0; i<lua_dependencies_keys.length; i++) {
 			let lua_name = lua_dependencies_keys[i];
+			/* skip the 'js' library (fengari-interop) as it's already included in fengari-web */
+			if (lua_name === 'js') continue;
 			/* if lua requires "foo" then look for webpack dependency "foo" */
 			lua_dependencies[lua_name] = lua_name;
 		}
