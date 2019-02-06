@@ -1,3 +1,5 @@
+const path = require('path');
+
 const {
 	to_jsstring,
 	to_luastring,
@@ -13,8 +15,7 @@ const {
 } = require('fengari');
 
 /* We need some fengari internals */
-let fengariPath = require.resolve('fengari');
-fengariPath = fengariPath.substr(0, fengariPath.lastIndexOf('/'));
+let fengariPath = path.dirname(require.resolve('fengari'));
 const {
 	constant_types: {
 		LUA_TBOOLEAN,
@@ -24,7 +25,7 @@ const {
 		LUA_TNUMINT,
 		LUA_TSHRSTR
 	}
-} = require(`${fengariPath}/defs.js`);
+} = require(path.join(fengariPath,'defs.js'));
 const {
 	INDEXK,
 	ISK,
@@ -34,7 +35,7 @@ const {
 		OP_LOADK,
 		OP_TAILCALL
 	}
-} = require(`${fengariPath}/lopcodes.js`);
+} = require(path.join(fengariPath,'lopcodes.js'));
 
 const toproto = function(L, i) {
 	return lua_topointer(L, i).p;
