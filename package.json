@@ -16,12 +16,12 @@
     "node": ">=8"
   },
   "devDependencies": {
-    "babel-jest": "^22.4.3",
-    "babel-preset-env": "^1.6.1",
-    "eslint": "^4.19.1",
-    "jest": "^22.4.3",
+    "babel-jest": "^24.5.0",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^5.15.1",
+    "jest": "^24.5.0",
     "memory-fs": "^0.4.1",
-    "webpack": "^3.0.0 || ^4.0.0"
+    "webpack": "^4.29.6"
   },
   "peerDependencies": {
     "fengari-web": "^0.1",
@@ -29,8 +29,8 @@
   },
   "dependencies": {
     "fengari": "^0.1",
-    "loader-utils": "^1.1.0",
-    "schema-utils": "^0.4.5"
+    "loader-utils": "^1.2.3",
+    "schema-utils": "^1.0.0"
   },
   "jest": {
     "testEnvironment": "node"
