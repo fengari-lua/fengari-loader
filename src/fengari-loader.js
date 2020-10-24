@@ -89,7 +89,7 @@ exports.default = function(source) {
 				let lua_name = lua_dependencies_keys[i];
 				/* if lua requires "foo" then look for webpack dependency "foo" */
 				lua_dependencies[lua_name] = await new Promise((resolve, reject) => {
-					this.resolve(process.cwd(), lua_name, (err, result) => {
+					this.resolve(this.context, lua_name, (err, result) => {
 						if (err) reject(err);
 						else resolve(result);
 					});
