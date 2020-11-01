@@ -1,6 +1,5 @@
 'use strict';
 
-const process = require('process');
 const loader_utils = require('loader-utils');
 const validateOptions = require('schema-utils');
 
